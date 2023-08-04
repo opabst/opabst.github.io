@@ -1,13 +1,15 @@
 # Docker Compose
 Setting up a local CI/CD-environment with Gitea, Jenkins and SonarQube.
 ```yaml
+version: "3.1"
+
 services:
   jenkins:
     image: jenkins/jenkins:2.416-jdk17
     ports:
       - "8080:8080"
     volumes:
-      - jenkins_home: /var/jenkins_home
+      - jenkins_home:/var/jenkins_home
   ssh-agent:
     image: jenkins/ssh-agent
   sonarqube:
@@ -60,10 +62,10 @@ services:
     image: postgres:14
     restart: always
     environment:
-      - POSTGRES_USER: gitea
-      - POSTGRES_PASSWORD: gitea
-      - POSTGRES_PORT: 5432
-      - POSTGRES_DB: gitea
+      - POSTGRES_USER=gitea
+      - POSTGRES_PASSWORD=gitea
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=gitea
     volumes:
       - gitea-postgres-data:/var/lib/postgresql/data
 volumes:
